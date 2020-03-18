@@ -23,7 +23,7 @@ public class BoekingenController {
     private DatePicker vertrekDatumInput;
 
     @FXML
-    private ChoiceBox<?> kamertypeInput;
+    private ChoiceBox kamertypeInput;
 
     @FXML
     private Button resetBoekingKnop;

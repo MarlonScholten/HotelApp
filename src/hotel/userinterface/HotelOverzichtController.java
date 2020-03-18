@@ -10,6 +10,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class HotelOverzichtController {
     @FXML private Label hotelnaamLabel;
@@ -44,8 +45,11 @@ public class HotelOverzichtController {
     }
 
     public void toonBoekingen() {
-        System.out.println("toonBoekingen() is nog niet geïmplementeerd!");
         ObservableList<String> boekingen = FXCollections.observableArrayList();
+        List alleBoekingen = hotel.getBoekingen();
+        StringBuilder s = new StringBuilder();
+
+        boekingen.addAll(alleBoekingen);
 
         // Vraag de boekingen op bij het Hotel-object.
         // Voeg voor elke boeking in nette tekst (string) toe aan de boekingen-lijst.
