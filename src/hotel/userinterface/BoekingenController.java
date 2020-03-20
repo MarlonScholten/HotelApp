@@ -12,6 +12,7 @@ import javafx.event.ActionEvent;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 public class BoekingenController {
     private Hotel hotel = Hotel.getHotel();
@@ -62,15 +63,33 @@ public class BoekingenController {
             fouteInputs.add("adres");
         }
 
+        // Aankomst datum input check
+        boolean aankomstDatumLeeg = aankomstDatumInput.getValue() == null;
+        if (aankomstDatumLeeg){
+            fouteInputs.add("aankomstdatum");
+        }
+
+        // Vertrek datum input check
+        boolean vertrekDatumLeeg = vertrekDatumInput.getValue() == null;
+        if (vertrekDatumLeeg){
+            fouteInputs.add("vertrekdatum");
+        }
+
         // Kamertype input check
         boolean kamerTypeLeeg = kamertypeInput.getSelectionModel().isEmpty();
         if (kamerTypeLeeg){
             fouteInputs.add("kamertype");
         }
 
-        String textErrorString = " niet ingevuld";
+        String textErrorString = " niet ingevuld.";
         if(fouteInputs.size() == 0){
-            messageBuilder.append("De Boeking is geslaagd");
+            if (Utils.dateInPast(aankomstDatumInput)){
+                messageBuilder.append("aankomst datum kan niet in in het verleden zijn");
+            }
+
+            if (Utils.dateInPast(vertrekDatumInput)){
+                messageBuilder.append("vertrek datum kan niet in in het verleden zijn");
+            }
         }
         else if (fouteInputs.size() == 1){
             fouteInputs.set(0, Utils.capitalizeString(fouteInputs.get(0)));
