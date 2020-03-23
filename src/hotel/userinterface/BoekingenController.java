@@ -87,6 +87,7 @@ public class BoekingenController {
         ArrayList<String> fouteInputs = inputCheck();
         String textErrorString = " niet ingevuld.";
 
+        // Als alles is ingevuld
         if(fouteInputs.size() == 0){
             if (Utils.dateInPast(aankomstDatumInput)){
                 messageBuilder.append("Aankomst datum kan niet in in het verleden zijn \n");
@@ -100,7 +101,10 @@ public class BoekingenController {
                 messageBuilder.append("Vertrek datum kan niet voor de aankomst datum zijn");
             }
 
+            // Datum is goed ingevuld en we hebben geen errors meer
             if (messageBuilder.toString().equals("")){
+
+                // Selecteer een kamertype gebaseerd op geselecteerde string van kamertype
                 List<KamerType> alleKamerTypen = hotel.getKamerTypen();
                 KamerType kamerType = null;
                 
@@ -109,24 +113,32 @@ public class BoekingenController {
                         kamerType = type;
                     }
                 }
+
+                // Voeg een nieuwe boeking toe en geef een melding dat die boeking geslaagd is
                 hotel.voegBoekingToe(aankomstDatumInput.getValue(), vertrekDatumInput.getValue(), naamInput.getText(), adresInput.getText(), kamerType);
                 messageBuilder.append("Boeking is geslaagd!");
             }
         }
+        // Als er maar 1 input niet is ingevuld
         else if (fouteInputs.size() == 1){
             fouteInputs.set(0, Utils.capitalizeString(fouteInputs.get(0)));
             messageBuilder.append(fouteInputs.get(0) + " is" + textErrorString);
         }
+        // Als er meerdere inputs niet zijn ingevuld
         else {
+            // Capitalize het eerste item in foutmeldingen
             fouteInputs.set(0, Utils.capitalizeString(fouteInputs.get(0)));
 
             for (String fouteInput : fouteInputs){
+                // Zet geen komma achter het laatste error item
                 if(fouteInput.equals(fouteInputs.get(fouteInputs.size() - 1))){
                     messageBuilder.append(fouteInput);
                 }
+                // Zet een "en" tussen de laatste twee error items
                 else if(fouteInput.equals(fouteInputs.get(fouteInputs.size() - 2))){
                     messageBuilder.append(fouteInput + " en ");
                 }
+                // Zet een komma tussen error items
                 else {
                     messageBuilder.append(fouteInput + ", ");
                 }
