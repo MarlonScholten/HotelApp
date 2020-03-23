@@ -155,6 +155,7 @@ public class BoekingenController {
         aankomstDatumInput.setValue(null);
         vertrekDatumInput.setValue(null);
         kamertypeInput.setValue(null);
+        messageField.setText(null);
     }
 
 }
