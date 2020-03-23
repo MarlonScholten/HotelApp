@@ -12,7 +12,6 @@ import javafx.event.ActionEvent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.time.LocalDate;
 
 public class BoekingenController {
     private Hotel hotel = Hotel.getHotel();
@@ -44,9 +43,7 @@ public class BoekingenController {
         kamertypeInput.setItems(kamerTypen);
     }
 
-    @FXML
-    void confirmBoeking(ActionEvent event) {
-        StringBuilder messageBuilder = new StringBuilder();
+    public ArrayList<String> inputCheck(){
         ArrayList<String> fouteInputs = new ArrayList<>();
 
         // Naam input check
@@ -81,14 +78,39 @@ public class BoekingenController {
             fouteInputs.add("kamertype");
         }
 
+        return fouteInputs;
+    }
+
+    @FXML
+    void confirmBoeking(ActionEvent event) throws Exception {
+        StringBuilder messageBuilder = new StringBuilder("");
+        ArrayList<String> fouteInputs = inputCheck();
         String textErrorString = " niet ingevuld.";
+
         if(fouteInputs.size() == 0){
             if (Utils.dateInPast(aankomstDatumInput)){
-                messageBuilder.append("aankomst datum kan niet in in het verleden zijn");
+                messageBuilder.append("Aankomst datum kan niet in in het verleden zijn \n");
             }
 
             if (Utils.dateInPast(vertrekDatumInput)){
-                messageBuilder.append("vertrek datum kan niet in in het verleden zijn");
+                messageBuilder.append("Vertrek datum kan niet in in het verleden zijn\n");
+            }
+
+            if (vertrekDatumInput.getValue().isBefore(aankomstDatumInput.getValue())){
+                messageBuilder.append("Vertrek datum kan niet voor de aankomst datum zijn");
+            }
+
+            if (messageBuilder.toString().equals("")){
+                List<KamerType> alleKamerTypen = hotel.getKamerTypen();
+                KamerType kamerType = null;
+                
+                for (KamerType type : alleKamerTypen){
+                    if (kamertypeInput.getValue().equals(type.toString())){
+                        kamerType = type;
+                    }
+                }
+                hotel.voegBoekingToe(aankomstDatumInput.getValue(), vertrekDatumInput.getValue(), naamInput.getText(), adresInput.getText(), kamerType);
+                messageBuilder.append("Boeking is geslaagd!");
             }
         }
         else if (fouteInputs.size() == 1){

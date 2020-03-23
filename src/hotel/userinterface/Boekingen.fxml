@@ -78,14 +78,14 @@
                   <ChoiceBox fx:id="kamertypeInput" prefHeight="26.0" prefWidth="358.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                </children>
             </GridPane>
-            <HBox alignment="CENTER" fillHeight="false" maxHeight="48.0" maxWidth="535.0" minHeight="0.0" minWidth="0.0" prefHeight="48.0" prefWidth="535.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
+            <HBox alignment="CENTER" fillHeight="false" maxHeight="64.0" maxWidth="535.0" minHeight="0.0" minWidth="0.0" prefHeight="64.0" prefWidth="520.0" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM">
                <children>
-                  <HBox prefHeight="48.0" prefWidth="410.0">
+                  <HBox prefHeight="80.0" prefWidth="340.0">
                      <HBox.margin>
                         <Insets right="50.0" />
                      </HBox.margin>
                      <children>
-                        <Label fx:id="messageField" alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="70.0" prefWidth="372.0" wrapText="true" />
+                        <Label fx:id="messageField" alignment="TOP_LEFT" contentDisplay="CENTER" prefHeight="146.0" prefWidth="340.0" wrapText="true" />
                      </children>
                   </HBox>
                   <Button fx:id="resetBoekingKnop" alignment="CENTER" contentDisplay="CENTER" minWidth="60.0" mnemonicParsing="false" onAction="#resetBoeking" text="Reset" textAlignment="CENTER" />
